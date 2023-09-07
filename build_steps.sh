@@ -1,7 +1,7 @@
 rm -rf build
 mkdir build
 cd build
-
+cp ../CMakeLists.txt .
 FC=gfortran cmake .. -DSERIAL=1
 # FC='mpif90 -qopenmp' cmake .. -DSERIAL=1
 

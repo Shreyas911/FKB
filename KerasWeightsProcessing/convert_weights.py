@@ -3,18 +3,14 @@ import json
 import warnings
 import argparse
 import numpy as np
-
-import numpy as np
 import math
-import keras
-import keras.backend as K
-from keras.models import Sequential, Model
-from keras.layers import Dense, Dropout, BatchNormalization
-from keras.layers import Input, Activation
-from keras import optimizers
+from tensorflow import optimizers
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
+from tensorflow.keras.layers import Input, Activation
 
-INPUT = ['input']
-ACTIVATIONS = ['relu', 'linear', 'leakyrelu', 'sigmoid']
+INPUT = ['inputlayer']
+ACTIVATIONS = ['relu', 'linear', 'leakyrelu', 'sigmoid', 'tanh']
 SUPPORTED_LAYERS = ['dense', 'dropout', 'batchnormalization'] + ACTIVATIONS + INPUT
 
 def txt_to_h5(weights_file_name, output_file_name=''):
@@ -203,7 +199,7 @@ def h5_to_txt(weights_file_name, output_file_name=''):
         for idx,layer in enumerate(layer_config):
             name       = layer['config']['name']
             class_name = layer['class_name'].lower()
-
+            print(class_name)
             if class_name not in SUPPORTED_LAYERS:
                 warning_str = 'Unsupported layer, %s, found! Skipping...' % class_name
                 warnings.warn(warning_str)
@@ -228,8 +224,9 @@ def h5_to_txt(weights_file_name, output_file_name=''):
                 weights.append(layer_weights)
 
                 activation = layer['config']['activation']
-
+                print(f"Activation: {activation}")
                 if activation not in ACTIVATIONS:
+                    print("activation not in ACTIVATIONS")
                     warning_str = 'Unsupported activation, %s, found! Replacing with Linear.' % activation
                     warnings.warn(warning_str)
                     activation = 'linear'

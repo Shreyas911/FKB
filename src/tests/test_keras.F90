@@ -25,7 +25,7 @@ program test_keras
   ! load trained network from keras
   call net % load(args(1))
 
-  input = [1, 2, 3, 4, 5]
+  input = [.1, .2, .3, .4, .5, .6]
 
   ! run test input through network
   result1 = net % output(input)
